@@ -169,7 +169,7 @@ function render(){
     const div = document.createElement("div");
     div.className = "card" + ((r.flags||[]).includes("duplicate") ? " dup" : "");
     const img = r.first_photo
-      ? `<img loading="lazy" src="${r.first_photo}" alt="">`
+      ? `<img src="${r.first_photo}" alt="">`
       : `<div class="noimg">no photos</div>`;
     const price = r.price ? `${r.price.toLocaleString()} ${r.currency}` : "price on request";
     const ppsm = r.price_per_m2 ? ` · ${Math.round(r.price_per_m2).toLocaleString()}/m²` : "";

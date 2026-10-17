@@ -769,22 +769,22 @@
     "urbans": [
      {
       "name": "—",
-      "count": 771
+      "count": 781
+     },
+     {
+      "name": "Kakhabri district",
+      "count": 48
      },
      {
       "name": "Tamar settlement",
       "count": 48
      },
      {
-      "name": "Kakhabri district",
-      "count": 47
-     },
-     {
       "name": "Boni-Gorodok district",
       "count": 7
      }
     ],
-    "count": 873
+    "count": 884
    },
    "Batumi|sale": {
     "slug": "batumi__sale",
@@ -2101,7 +2101,7 @@
     "urbans": [
      {
       "name": "—",
-      "count": 13202
+      "count": 13204
      },
      {
       "name": "Kakhabri district",
@@ -2120,7 +2120,7 @@
       "count": 1
      }
     ],
-    "count": 13327
+    "count": 13329
    },
    "Batumi|sale": {
     "slug": "batumi__sale",

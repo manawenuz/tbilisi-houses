@@ -50,6 +50,7 @@ padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items
   <h1>🏠 Tbilisi Houses <small>myhome.ge catalog · <span id="gen-date"></span></small></h1>
   <div class="controls">
     <select id="district"></select>
+    <select id="urban"><option value="">all sub-districts</option></select>
     <select id="deal"><option value="sale">For sale</option><option value="rent">For rent</option></select>
     <select id="sort">
       <option value="trust">Sort: trust ↓</option>
@@ -94,6 +95,7 @@ async function init(){
   if(urlD && districts.includes(urlD)) $("district").value = urlD;
   if(urlDeal) $("deal").value = urlDeal;
   $("deal").onchange = $("district").onchange = load;
+  $("urban").onchange = apply;
   $("sort").onchange = $("trustMin").oninput = $("priceFrom").oninput =
     $("priceTo").oninput = $("areaMin").oninput = $("rooms").onchange =
     $("hideDups").onchange = $("onlyFlag").onchange = apply;
@@ -112,6 +114,9 @@ async function load(){
   const key = `${d}|${deal}`;
   $("grid").innerHTML = ""; $("stats").textContent = "loading…";
   const meta = (await fetch("data/index.json").then(r=>r.json()))[key];
+  // populate sub-district dropdown
+  $("urban").innerHTML = '<option value="">all sub-districts</option>' +
+    (meta.urbans||[]).map(u=>`<option value="${esc(u.name)}">${esc(u.name)} (${u.count})</option>`).join("");
   const parts = await Promise.all(meta.chunks.map(c=>
     fetch("data/"+c).then(r=>r.blob())
       .then(b=>new Response(b.stream().pipeThrough(new DecompressionStream("gzip"))).json())));
@@ -125,12 +130,14 @@ function apply(){
   const pf = +$("priceFrom").value || 0, pt = +$("priceTo").value || Infinity;
   const amin = +$("areaMin").value || 0;
   const rooms = $("rooms").value;
+  const urbanSel = $("urban").value;
   const hideDups = $("hideDups").checked, onlyFlag = $("onlyFlag").checked;
   filtered = DATA.filter(r=>{
     if(r.trust_score < trust) return false;
     if(r.price && (r.price < pf || r.price > pt)) return false;
     if(r.area_m2 && r.area_m2 < amin) return false;
     if(rooms && String(r.rooms) !== rooms) return false;
+    if(urbanSel && (r.urban||"—") !== urbanSel) return false;
     const isDup = r.flags && r.flags.includes("duplicate");
     if(hideDups && isDup) return false;
     if(onlyFlag && !(r.flags||[]).some(f=>f!=="dup-canonical")) return false;

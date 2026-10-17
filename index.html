@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tbilisi Houses — myhome.ge catalog</title>
+<title>Georgia Real Estate — myhome.ge catalog</title>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;
 --accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,system-ui,sans-serif}
-header{padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
+header{padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
 h1{font-size:18px}h1 small{color:var(--muted);font-weight:400;font-size:12px}
-.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
 select,button,input{background:var(--card);color:var(--text);border:1px solid var(--border);
 border-radius:6px;padding:8px 10px;font-size:13px}
 input[type=range]{accent-color:var(--accent)}
-.stats{color:var(--muted);font-size:12px;margin-top:8px}
+.stats{color:var(--muted);font-size:12px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:16px 20px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;
 display:flex;flex-direction:column;transition:border-color .15s}
@@ -41,15 +41,20 @@ font-size:12px;text-decoration:none}
 .filters-panel{background:var(--card);border:1px solid var(--border);border-radius:8px;
 padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px}
 .filters-panel label{display:flex;flex-direction:column;gap:4px;color:var(--muted)}
-.hide-dups .card.dup{display:none}
 #loading{display:none;padding:30px;text-align:center;color:var(--muted)}
+.region-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.region-tab{padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);
+color:var(--muted);cursor:pointer;font-size:13px;user-select:none}
+.region-tab.active{border-color:var(--accent);color:var(--accent);font-weight:600}
+.region-tab small{opacity:.7}
 </style>
 </head>
 <body>
 <header>
-  <h1>🏠 Tbilisi Houses <small>myhome.ge catalog · <span id="gen-date"></span></small></h1>
+  <h1>🏠 Georgia Real Estate <small>myhome.ge catalog · <span id="gen-date"></span></small></h1>
+  <div class="region-tabs" id="regionTabs"></div>
   <div class="controls">
-    <select id="district"></select>
+    <select id="district" style="display:none"></select>
     <select id="urban"><option value="">all sub-districts</option></select>
     <select id="deal"><option value="sale">For sale</option><option value="rent">For rent</option></select>
     <select id="sort">
@@ -62,12 +67,11 @@ padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items
     </select>
     <input type="checkbox" id="hideDups" checked><label for="hideDups" style="font-size:12px">hide reposts</label>
     <input type="checkbox" id="onlyFlag"><label for="onlyFlag" style="font-size:12px">only flagged</label>
-    <span class="stats" id="stats"></span>
   </div>
   <div class="filters-panel">
     <label>min trust: <span id="trustVal">0</span><input type="range" id="trustMin" min="0" max="100" value="0"></label>
-    <label>price from ($): <input type="number" id="priceFrom" style="width:90px"></label>
-    <label>price to ($): <input type="number" id="priceTo" style="width:90px"></label>
+    <label>price from: <input type="number" id="priceFrom" style="width:90px"></label>
+    <label>price to: <input type="number" id="priceTo" style="width:90px"></label>
     <label>area from (m²): <input type="number" id="areaFrom" style="width:70px"></label>
     <label>area to (m²): <input type="number" id="areaTo" style="width:70px"></label>
     <label>$/m² from: <input type="number" id="ppsmFrom" style="width:70px"></label>
@@ -76,64 +80,88 @@ padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items
     <label>bedrooms: <select id="bedrooms"><option value="">any</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
     <label>floor: <select id="floorSel"><option value="">any</option><option value="ground">ground</option><option value="top">top floor</option><option value="notground">not ground</option></select></label>
     <button id="clear">Clear</button>
+    <span class="stats" id="stats"></span>
   </div>
 </header>
 <div class="grid" id="grid"></div>
 <div id="loading">loading more…</div>
 <script>
 const $=id=>document.getElementById(id);
-let DATA=[], filtered=[], shown=0, PAGE=24;
+let REGIONS={}, CUR="", DATA=[], filtered=[], shown=0, PAGE=24;
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 async function init(){
-  const [sum, idx] = await Promise.all([
-    fetch("data/summary.json").then(r=>r.json()),
-    fetch("data/index.json").then(r=>r.json())]);
+  REGIONS = await fetch("data/regions.json").then(r=>r.json());
   $("gen-date").textContent = new Date().toISOString().slice(0,10);
-  // district options with counts
-  const districts = Object.keys(sum);
-  $("district").innerHTML = districts.map(d=>{
-    const s = sum[d]["sale"].count + sum[d]["rent"].count;
-    return `<option value="${esc(d)}">${esc(d)} (${s})</option>`;
+  const tabs = Object.entries(REGIONS).map(([k,v])=>{
+    const total = Object.values(v.groups).reduce((a,g)=>a+g.count,0);
+    return `<div class="region-tab" data-r="${esc(k)}">${esc(v.label)} <small>${total.toLocaleString()}</small></div>`;
   }).join("");
-  let urlD = new URLSearchParams(location.search).get("d");
-  let urlDeal = new URLSearchParams(location.search).get("deal");
-  if(urlD && districts.includes(urlD)) $("district").value = urlD;
-  if(urlDeal) $("deal").value = urlDeal;
-  $("deal").onchange = $("district").onchange = load;
-  $("urban").onchange = apply;
-  $("sort").onchange = $("trustMin").oninput = $("priceFrom").oninput =
-    $("priceTo").oninput = $("areaFrom").oninput = $("areaTo").oninput =
-    $("ppsmFrom").oninput = $("ppsmTo").oninput = $("rooms").onchange =
-    $("bedrooms").onchange = $("floorSel").onchange =
+  $("regionTabs").innerHTML = tabs;
+  document.querySelectorAll(".region-tab").forEach(t=>{
+    t.onclick = ()=>{ document.querySelectorAll(".region-tab").forEach(x=>x.classList.remove("active"));
+      t.classList.add("active"); CUR = t.dataset.r; onRegion(); };
+  });
+  const p = new URLSearchParams(location.search);
+  CUR = (p.get("r") && REGIONS[p.get("r")]) ? p.get("r") : Object.keys(REGIONS)[0];
+  const tabEl = document.querySelector(`.region-tab[data-r="${CUR}"]`);
+  if(tabEl) tabEl.classList.add("active");
+
+  $("deal").onchange = onDeal;
+  $("district").onchange = onDeal;
+  $("urban").onchange = $("sort").onchange =
+    $("priceFrom").oninput = $("priceTo").oninput = $("areaFrom").oninput =
+    $("areaTo").oninput = $("ppsmFrom").oninput = $("ppsmTo").oninput =
+    $("rooms").onchange = $("bedrooms").onchange = $("floorSel").onchange =
     $("hideDups").onchange = $("onlyFlag").onchange = apply;
-  $("trustMin").oninput = e=>$("trustVal").textContent = e.target.value;
+  $("trustMin").oninput = e=>{$("trustVal").textContent = e.target.value; apply();};
   $("clear").onclick = ()=>{["priceFrom","priceTo","areaFrom","areaTo","ppsmFrom","ppsmTo"].forEach(k=>$(k).value="");
     $("rooms").value="";$("bedrooms").value="";$("floorSel").value="";$("trustMin").value=0;$("trustVal").textContent="0";
     $("onlyFlag").checked=false;apply();};
-  window.addEventListener("scroll", ()=>{ // infinite scroll
+  window.addEventListener("scroll", ()=>{
     if(shown < filtered.length &&
        window.innerHeight + window.scrollY > document.body.offsetHeight - 400) render();});
-  load();
+  onRegion();
 }
 
-async function load(){
-  const d = $("district").value, deal = $("deal").value;
-  const key = `${d}|${deal}`;
+function regionConf(){ return REGIONS[CUR]; }
+
+function locKeys(){
+  return [...new Set(Object.keys(regionConf().groups).map(k=>k.split("|")[0]))];
+}
+
+function onRegion(){
+  const locs = locKeys();
+  const ds = $("district");
+  ds.style.display = locs.length > 1 ? "" : "none";
+  if(locs.length > 1){
+    ds.innerHTML = locs.map(l=>{
+      const tot = Object.entries(regionConf().groups)
+        .filter(([k])=>k.startsWith(l+"|")).reduce((a,[,g])=>a+g.count,0);
+      return `<option value="${esc(l)}">${esc(l)} (${tot.toLocaleString()})</option>`;
+    }).join("");
+  }
+  onDeal();
+}
+
+async function onDeal(){
+  const conf = regionConf();
+  const loc = $("district").style.display !== "none" ? $("district").value : locKeys()[0];
+  const deal = $("deal").value;
+  const g = conf.groups[`${loc}|${deal}`];
   $("grid").innerHTML = ""; $("stats").textContent = "loading…";
-  const meta = (await fetch("data/index.json").then(r=>r.json()))[key];
-  // populate sub-district dropdown
+  if(!g){ $("stats").textContent = "no listings"; DATA=[]; filtered=[]; return; }
+  const idx = await fetch(`data/${CUR}/${g.slug}/index.json`).then(r=>r.json());
   $("urban").innerHTML = '<option value="">all sub-districts</option>' +
-    (meta.urbans||[]).map(u=>`<option value="${esc(u.name)}">${esc(u.name)} (${u.count})</option>`).join("");
-  const parts = await Promise.all(meta.chunks.map(c=>
-    fetch("data/"+c).then(r=>r.blob())
+    (idx.urbans||[]).map(u=>`<option value="${esc(u.name)}">${esc(u.name)} (${u.count})</option>`).join("");
+  const parts = await Promise.all(g.chunks.map(c=>
+    fetch(`data/${CUR}/${g.slug}/${c}`).then(r=>r.blob())
       .then(b=>new Response(b.stream().pipeThrough(new DecompressionStream("gzip"))).json())));
   DATA = parts.flat();
   apply();
 }
 
 function apply(){
-  const deal = $("deal").value;
   const trust = +$("trustMin").value;
   const pf = +$("priceFrom").value || 0, pt = +$("priceTo").value || Infinity;
   const amin = +$("areaFrom").value || 0, amax = +$("areaTo").value || Infinity;
@@ -167,7 +195,6 @@ function apply(){
     ppsm_desc:(a,b)=>(b.price_per_m2||0)-(a.price_per_m2||0),
     newest:(a,b)=>String(b.last_updated).localeCompare(String(a.last_updated))}[s];
   filtered.sort(cmp);
-  document.body.classList.toggle("hide-dups", false);
   shown = 0; $("grid").innerHTML=""; render();
 }
 
@@ -199,7 +226,7 @@ function render(){
     const ppsm = r.price_per_m2 ? ` · ${Math.round(r.price_per_m2).toLocaleString()}/m²` : "";
     const area = r.area_m2 ? `${r.area_m2} m²` : "";
     const yard = r.yard_area_m2 ? ` · yard ${r.yard_area_m2} m²` : "";
-    const fl = r.floors ? ` · ${r.floors} fl` : "";
+    const fl = r.floor && r.floors ? ` · floor ${r.floor}/${r.floors}` : (r.floors ? ` · ${r.floors} fl` : "");
     div.innerHTML = `${img}
       <div class="body">
         <div class="price">${price}<span class="ppsm">${ppsm}</span></div>
@@ -214,8 +241,7 @@ function render(){
   }
   $("grid").appendChild(frag);
   shown = end;
-  const s = $("deal").value;
-  $("stats").textContent = `${filtered.length} shown / ${DATA.length} total`;
+  $("stats").textContent = `${filtered.length.toLocaleString()} shown / ${DATA.length.toLocaleString()} total`;
 }
 
 init();

@@ -57,6 +57,7 @@ padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items
       <option value="price_asc">Sort: price ↑</option>
       <option value="price_desc">Sort: price ↓</option>
       <option value="ppsm_asc">Sort: price/m² ↑</option>
+      <option value="ppsm_desc">Sort: price/m² ↓</option>
       <option value="newest">Sort: newest</option>
     </select>
     <input type="checkbox" id="hideDups" checked><label for="hideDups" style="font-size:12px">hide reposts</label>
@@ -67,8 +68,13 @@ padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items
     <label>min trust: <span id="trustVal">0</span><input type="range" id="trustMin" min="0" max="100" value="0"></label>
     <label>price from ($): <input type="number" id="priceFrom" style="width:90px"></label>
     <label>price to ($): <input type="number" id="priceTo" style="width:90px"></label>
-    <label>min area (m²): <input type="number" id="areaMin" style="width:70px"></label>
+    <label>area from (m²): <input type="number" id="areaFrom" style="width:70px"></label>
+    <label>area to (m²): <input type="number" id="areaTo" style="width:70px"></label>
+    <label>$/m² from: <input type="number" id="ppsmFrom" style="width:70px"></label>
+    <label>$/m² to: <input type="number" id="ppsmTo" style="width:70px"></label>
     <label>rooms: <select id="rooms"><option value="">any</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+    <label>bedrooms: <select id="bedrooms"><option value="">any</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+    <label>floor: <select id="floorSel"><option value="">any</option><option value="ground">ground</option><option value="top">top floor</option><option value="notground">not ground</option></select></label>
     <button id="clear">Clear</button>
   </div>
 </header>
@@ -97,11 +103,13 @@ async function init(){
   $("deal").onchange = $("district").onchange = load;
   $("urban").onchange = apply;
   $("sort").onchange = $("trustMin").oninput = $("priceFrom").oninput =
-    $("priceTo").oninput = $("areaMin").oninput = $("rooms").onchange =
+    $("priceTo").oninput = $("areaFrom").oninput = $("areaTo").oninput =
+    $("ppsmFrom").oninput = $("ppsmTo").oninput = $("rooms").onchange =
+    $("bedrooms").onchange = $("floorSel").onchange =
     $("hideDups").onchange = $("onlyFlag").onchange = apply;
   $("trustMin").oninput = e=>$("trustVal").textContent = e.target.value;
-  $("clear").onclick = ()=>{["priceFrom","priceTo","areaMin"].forEach(k=>$(k).value="");
-    $("rooms").value="";$("trustMin").value=0;$("trustVal").textContent="0";
+  $("clear").onclick = ()=>{["priceFrom","priceTo","areaFrom","areaTo","ppsmFrom","ppsmTo"].forEach(k=>$(k).value="");
+    $("rooms").value="";$("bedrooms").value="";$("floorSel").value="";$("trustMin").value=0;$("trustVal").textContent="0";
     $("onlyFlag").checked=false;apply();};
   window.addEventListener("scroll", ()=>{ // infinite scroll
     if(shown < filtered.length &&
@@ -128,15 +136,23 @@ function apply(){
   const deal = $("deal").value;
   const trust = +$("trustMin").value;
   const pf = +$("priceFrom").value || 0, pt = +$("priceTo").value || Infinity;
-  const amin = +$("areaMin").value || 0;
+  const amin = +$("areaFrom").value || 0, amax = +$("areaTo").value || Infinity;
+  const sqf = +$("ppsmFrom").value || 0, sqt = +$("ppsmTo").value || Infinity;
   const rooms = $("rooms").value;
+  const bedrooms = $("bedrooms").value;
+  const floorSel = $("floorSel").value;
   const urbanSel = $("urban").value;
   const hideDups = $("hideDups").checked, onlyFlag = $("onlyFlag").checked;
   filtered = DATA.filter(r=>{
     if(r.trust_score < trust) return false;
     if(r.price && (r.price < pf || r.price > pt)) return false;
-    if(r.area_m2 && r.area_m2 < amin) return false;
+    if(r.area_m2 && (r.area_m2 < amin || r.area_m2 > amax)) return false;
+    if(r.price_per_m2 && (r.price_per_m2 < sqf || r.price_per_m2 > sqt)) return false;
     if(rooms && String(r.rooms) !== rooms) return false;
+    if(bedrooms && String(r.bedrooms||"") !== bedrooms) return false;
+    if(floorSel === "ground" && !(r.floors && r.floor === 1)) return false;
+    if(floorSel === "notground" && r.floor === 1) return false;
+    if(floorSel === "top" && !(r.floors && r.floor === r.floors)) return false;
     if(urbanSel && (r.urban||"—") !== urbanSel) return false;
     const isDup = r.flags && r.flags.includes("duplicate");
     if(hideDups && isDup) return false;
@@ -148,6 +164,7 @@ function apply(){
     price_asc:(a,b)=>(a.price||1e12)-(b.price||1e12),
     price_desc:(a,b)=>(b.price||0)-(a.price||0),
     ppsm_asc:(a,b)=>(a.price_per_m2||1e9)-(b.price_per_m2||1e9),
+    ppsm_desc:(a,b)=>(b.price_per_m2||0)-(a.price_per_m2||0),
     newest:(a,b)=>String(b.last_updated).localeCompare(String(a.last_updated))}[s];
   filtered.sort(cmp);
   document.body.classList.toggle("hide-dups", false);

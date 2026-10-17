@@ -2048,5 +2048,231 @@
     "count": 31091
    }
   }
+ },
+ "coastal-apartments": {
+  "label": "Seaside · Apartments",
+  "ptype": "apartment",
+  "cities": [
+   "Batumi",
+   "Khelvachauri",
+   "Kobuleti",
+   "Poti",
+   "Zugdidi"
+  ],
+  "groups": {
+   "Batumi|rent": {
+    "slug": "batumi__rent",
+    "chunks": [
+     "chunk_0.json.gz",
+     "chunk_1.json.gz",
+     "chunk_2.json.gz",
+     "chunk_3.json.gz",
+     "chunk_4.json.gz",
+     "chunk_5.json.gz",
+     "chunk_6.json.gz",
+     "chunk_7.json.gz",
+     "chunk_8.json.gz",
+     "chunk_9.json.gz",
+     "chunk_10.json.gz",
+     "chunk_11.json.gz",
+     "chunk_12.json.gz",
+     "chunk_13.json.gz",
+     "chunk_14.json.gz",
+     "chunk_15.json.gz",
+     "chunk_16.json.gz",
+     "chunk_17.json.gz",
+     "chunk_18.json.gz",
+     "chunk_19.json.gz",
+     "chunk_20.json.gz",
+     "chunk_21.json.gz",
+     "chunk_22.json.gz",
+     "chunk_23.json.gz",
+     "chunk_24.json.gz",
+     "chunk_25.json.gz",
+     "chunk_26.json.gz",
+     "chunk_27.json.gz",
+     "chunk_28.json.gz",
+     "chunk_29.json.gz",
+     "chunk_30.json.gz",
+     "chunk_31.json.gz",
+     "chunk_32.json.gz",
+     "chunk_33.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 13202
+     },
+     {
+      "name": "Kakhabri district",
+      "count": 65
+     },
+     {
+      "name": "Tamar settlement",
+      "count": 49
+     },
+     {
+      "name": "Boni-Gorodok district",
+      "count": 10
+     },
+     {
+      "name": "Mtatsminda",
+      "count": 1
+     }
+    ],
+    "count": 13327
+   },
+   "Batumi|sale": {
+    "slug": "batumi__sale",
+    "chunks": [
+     "chunk_0.json.gz",
+     "chunk_1.json.gz",
+     "chunk_2.json.gz",
+     "chunk_3.json.gz",
+     "chunk_4.json.gz",
+     "chunk_5.json.gz",
+     "chunk_6.json.gz",
+     "chunk_7.json.gz",
+     "chunk_8.json.gz",
+     "chunk_9.json.gz",
+     "chunk_10.json.gz",
+     "chunk_11.json.gz",
+     "chunk_12.json.gz",
+     "chunk_13.json.gz",
+     "chunk_14.json.gz",
+     "chunk_15.json.gz",
+     "chunk_16.json.gz",
+     "chunk_17.json.gz",
+     "chunk_18.json.gz",
+     "chunk_19.json.gz",
+     "chunk_20.json.gz",
+     "chunk_21.json.gz",
+     "chunk_22.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 8897
+     },
+     {
+      "name": "Tamar settlement",
+      "count": 46
+     },
+     {
+      "name": "Kakhabri district",
+      "count": 38
+     },
+     {
+      "name": "Boni-Gorodok district",
+      "count": 12
+     }
+    ],
+    "count": 8993
+   },
+   "Khelvachauri|rent": {
+    "slug": "khelvachauri__rent",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 79
+     }
+    ],
+    "count": 79
+   },
+   "Khelvachauri|sale": {
+    "slug": "khelvachauri__sale",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 198
+     }
+    ],
+    "count": 198
+   },
+   "Kobuleti|rent": {
+    "slug": "kobuleti__rent",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 163
+     }
+    ],
+    "count": 163
+   },
+   "Kobuleti|sale": {
+    "slug": "kobuleti__sale",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 295
+     }
+    ],
+    "count": 295
+   },
+   "Poti|rent": {
+    "slug": "poti__rent",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 55
+     }
+    ],
+    "count": 55
+   },
+   "Poti|sale": {
+    "slug": "poti__sale",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 63
+     }
+    ],
+    "count": 63
+   },
+   "Zugdidi|rent": {
+    "slug": "zugdidi__rent",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 4
+     }
+    ],
+    "count": 4
+   },
+   "Zugdidi|sale": {
+    "slug": "zugdidi__sale",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 15
+     }
+    ],
+    "count": 15
+   }
+  }
  }
 }

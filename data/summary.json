@@ -1,0 +1,86 @@
+{
+ "Vake-Saburtalo": {
+  "sale": {
+   "count": 3079,
+   "median_trust": 70,
+   "dupes": 1581,
+   "flagged": 2372
+  },
+  "rent": {
+   "count": 6604,
+   "median_trust": 70,
+   "dupes": 2929,
+   "flagged": 4884
+  }
+ },
+ "Old Tbilisi": {
+  "sale": {
+   "count": 591,
+   "median_trust": 67,
+   "dupes": 249,
+   "flagged": 443
+  },
+  "rent": {
+   "count": 1317,
+   "median_trust": 70,
+   "dupes": 523,
+   "flagged": 930
+  }
+ },
+ "Didube-Chugureti": {
+  "sale": {
+   "count": 578,
+   "median_trust": 67,
+   "dupes": 312,
+   "flagged": 445
+  },
+  "rent": {
+   "count": 784,
+   "median_trust": 67,
+   "dupes": 282,
+   "flagged": 529
+  }
+ },
+ "Gldani-Nadzaladevi": {
+  "sale": {
+   "count": 1326,
+   "median_trust": 67,
+   "dupes": 718,
+   "flagged": 1037
+  },
+  "rent": {
+   "count": 1130,
+   "median_trust": 62,
+   "dupes": 482,
+   "flagged": 875
+  }
+ },
+ "Isani-Samgori": {
+  "sale": {
+   "count": 531,
+   "median_trust": 67,
+   "dupes": 234,
+   "flagged": 387
+  },
+  "rent": {
+   "count": 929,
+   "median_trust": 67,
+   "dupes": 442,
+   "flagged": 746
+  }
+ },
+ "Suburbs of Tbilisi": {
+  "sale": {
+   "count": 1229,
+   "median_trust": 67,
+   "dupes": 533,
+   "flagged": 940
+  },
+  "rent": {
+   "count": 2984,
+   "median_trust": 70,
+   "dupes": 1440,
+   "flagged": 2280
+  }
+ }
+}

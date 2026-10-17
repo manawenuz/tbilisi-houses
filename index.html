@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tbilisi Houses — myhome.ge catalog</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;
+--accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,system-ui,sans-serif}
+header{padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
+h1{font-size:18px}h1 small{color:var(--muted);font-weight:400;font-size:12px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+select,button,input{background:var(--card);color:var(--text);border:1px solid var(--border);
+border-radius:6px;padding:8px 10px;font-size:13px}
+input[type=range]{accent-color:var(--accent)}
+.stats{color:var(--muted);font-size:12px;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:16px 20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;
+display:flex;flex-direction:column;transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card img{width:100%;height:150px;object-fit:cover;background:#222}
+.card .noimg{width:100%;height:150px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;background:#1c2128}
+.card .body{padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;gap:4px}
+.price{font-size:16px;font-weight:600}
+.ppsm{color:var(--muted);font-size:12px}
+.title{font-size:13px;line-height:1.3}
+.meta{color:var(--muted);font-size:12px}
+.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.badge{font-size:10px;padding:2px 6px;border-radius:10px;border:1px solid var(--border);color:var(--muted)}
+.badge.trust{font-weight:700}
+.t-high{color:var(--green);border-color:var(--green)}
+.t-mid{color:var(--yellow);border-color:var(--yellow)}
+.t-low{color:var(--red);border-color:var(--red)}
+.badge.dup{color:var(--yellow)}
+.badge.canon{color:var(--accent)}
+.badge.flag{color:var(--red);border-color:var(--red)}
+.card a.link{display:block;padding:8px 12px;border-top:1px solid var(--border);color:var(--accent);
+font-size:12px;text-decoration:none}
+.filters-panel{background:var(--card);border:1px solid var(--border);border-radius:8px;
+padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px}
+.filters-panel label{display:flex;flex-direction:column;gap:4px;color:var(--muted)}
+.hide-dups .card.dup{display:none}
+#loading{display:none;padding:30px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏠 Tbilisi Houses <small>myhome.ge catalog · <span id="gen-date"></span></small></h1>
+  <div class="controls">
+    <select id="district"></select>
+    <select id="deal"><option value="sale">For sale</option><option value="rent">For rent</option></select>
+    <select id="sort">
+      <option value="trust">Sort: trust ↓</option>
+      <option value="price_asc">Sort: price ↑</option>
+      <option value="price_desc">Sort: price ↓</option>
+      <option value="ppsm_asc">Sort: price/m² ↑</option>
+      <option value="newest">Sort: newest</option>
+    </select>
+    <input type="checkbox" id="hideDups" checked><label for="hideDups" style="font-size:12px">hide reposts</label>
+    <input type="checkbox" id="onlyFlag"><label for="onlyFlag" style="font-size:12px">only flagged</label>
+    <span class="stats" id="stats"></span>
+  </div>
+  <div class="filters-panel">
+    <label>min trust: <span id="trustVal">0</span><input type="range" id="trustMin" min="0" max="100" value="0"></label>
+    <label>price from ($): <input type="number" id="priceFrom" style="width:90px"></label>
+    <label>price to ($): <input type="number" id="priceTo" style="width:90px"></label>
+    <label>min area (m²): <input type="number" id="areaMin" style="width:70px"></label>
+    <label>rooms: <select id="rooms"><option value="">any</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+    <button id="clear">Clear</button>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+<div id="loading">loading more…</div>
+<script>
+const $=id=>document.getElementById(id);
+let DATA=[], filtered=[], shown=0, PAGE=24;
+const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+async function init(){
+  const [sum, idx] = await Promise.all([
+    fetch("data/summary.json").then(r=>r.json()),
+    fetch("data/index.json").then(r=>r.json())]);
+  $("gen-date").textContent = new Date().toISOString().slice(0,10);
+  // district options with counts
+  const districts = Object.keys(sum);
+  $("district").innerHTML = districts.map(d=>{
+    const s = sum[d]["sale"].count + sum[d]["rent"].count;
+    return `<option value="${esc(d)}">${esc(d)} (${s})</option>`;
+  }).join("");
+  let urlD = new URLSearchParams(location.search).get("d");
+  let urlDeal = new URLSearchParams(location.search).get("deal");
+  if(urlD && districts.includes(urlD)) $("district").value = urlD;
+  if(urlDeal) $("deal").value = urlDeal;
+  $("deal").onchange = $("district").onchange = load;
+  $("sort").onchange = $("trustMin").oninput = $("priceFrom").oninput =
+    $("priceTo").oninput = $("areaMin").oninput = $("rooms").onchange =
+    $("hideDups").onchange = $("onlyFlag").onchange = apply;
+  $("trustMin").oninput = e=>$("trustVal").textContent = e.target.value;
+  $("clear").onclick = ()=>{["priceFrom","priceTo","areaMin"].forEach(k=>$(k).value="");
+    $("rooms").value="";$("trustMin").value=0;$("trustVal").textContent="0";
+    $("onlyFlag").checked=false;apply();};
+  window.addEventListener("scroll", ()=>{ // infinite scroll
+    if(shown < filtered.length &&
+       window.innerHeight + window.scrollY > document.body.offsetHeight - 400) render();});
+  load();
+}
+
+async function load(){
+  const d = $("district").value, deal = $("deal").value;
+  const key = `${d}|${deal}`;
+  $("grid").innerHTML = ""; $("stats").textContent = "loading…";
+  const meta = (await fetch("data/index.json").then(r=>r.json()))[key];
+  const parts = await Promise.all(meta.chunks.map(c=>
+    fetch("data/"+c).then(r=>r.blob())
+      .then(b=>new Response(b.stream().pipeThrough(new DecompressionStream("gzip"))).json())));
+  DATA = parts.flat();
+  apply();
+}
+
+function apply(){
+  const deal = $("deal").value;
+  const trust = +$("trustMin").value;
+  const pf = +$("priceFrom").value || 0, pt = +$("priceTo").value || Infinity;
+  const amin = +$("areaMin").value || 0;
+  const rooms = $("rooms").value;
+  const hideDups = $("hideDups").checked, onlyFlag = $("onlyFlag").checked;
+  filtered = DATA.filter(r=>{
+    if(r.trust_score < trust) return false;
+    if(r.price && (r.price < pf || r.price > pt)) return false;
+    if(r.area_m2 && r.area_m2 < amin) return false;
+    if(rooms && String(r.rooms) !== rooms) return false;
+    const isDup = r.flags && r.flags.includes("duplicate");
+    if(hideDups && isDup) return false;
+    if(onlyFlag && !(r.flags||[]).some(f=>f!=="dup-canonical")) return false;
+    return true;
+  });
+  const s = $("sort").value;
+  const cmp = {trust:(a,b)=>b.trust_score-a.trust_score,
+    price_asc:(a,b)=>(a.price||1e12)-(b.price||1e12),
+    price_desc:(a,b)=>(b.price||0)-(a.price||0),
+    ppsm_asc:(a,b)=>(a.price_per_m2||1e9)-(b.price_per_m2||1e9),
+    newest:(a,b)=>String(b.last_updated).localeCompare(String(a.last_updated))}[s];
+  filtered.sort(cmp);
+  document.body.classList.toggle("hide-dups", false);
+  shown = 0; $("grid").innerHTML=""; render();
+}
+
+function badgeHtml(r){
+  const t = r.trust_score;
+  const cls = t>=70?"t-high":t>=45?"t-mid":"t-low";
+  let b = `<span class="badge trust ${cls}">trust ${t}</span>`;
+  (r.flags||[]).forEach(f=>{
+    if(f==="duplicate") b += `<span class="badge dup">repost</span>`;
+    else if(f==="dup-canonical") b += `<span class="badge canon">original</span>`;
+    else b += `<span class="badge flag">${esc(f.split("?")[0])}</span>`;
+  });
+  if(r.vip) b += `<span class="badge">VIP</span>`;
+  if(r.has_3d_tour) b += `<span class="badge">3D</span>`;
+  return b;
+}
+
+function render(){
+  const frag = document.createDocumentFragment();
+  const end = Math.min(shown + PAGE, filtered.length);
+  for(let i=shown;i<end;i++){
+    const r = filtered[i];
+    const div = document.createElement("div");
+    div.className = "card" + ((r.flags||[]).includes("duplicate") ? " dup" : "");
+    const img = r.first_photo
+      ? `<img loading="lazy" src="${r.first_photo}" alt="">`
+      : `<div class="noimg">no photos</div>`;
+    const price = r.price ? `${r.price.toLocaleString()} ${r.currency}` : "price on request";
+    const ppsm = r.price_per_m2 ? ` · ${Math.round(r.price_per_m2).toLocaleString()}/m²` : "";
+    const area = r.area_m2 ? `${r.area_m2} m²` : "";
+    const yard = r.yard_area_m2 ? ` · yard ${r.yard_area_m2} m²` : "";
+    const fl = r.floors ? ` · ${r.floors} fl` : "";
+    div.innerHTML = `${img}
+      <div class="body">
+        <div class="price">${price}<span class="ppsm">${ppsm}</span></div>
+        <div class="title">${esc(r.title)}</div>
+        <div class="meta">${area}${yard}${fl}${r.rooms?` · ${r.rooms} rooms`:""}${r.bedrooms?` · ${r.bedrooms} bd`:""}</div>
+        <div class="meta">📍 ${esc(r.address || r.urban || "")}${r.urban?` · ${esc(r.urban)}`:""}</div>
+        <div class="meta">👤 ${esc(r.seller_name||"?")} (${r.seller_type||"?"}) · ${r.days_listed||"?"}d · ${r.photo_count||0} photos</div>
+        <div class="badges">${badgeHtml(r)}</div>
+      </div>
+      <a class="link" href="${r.url}" target="_blank" rel="noopener">view on myhome.ge ↗</a>`;
+    frag.appendChild(div);
+  }
+  $("grid").appendChild(frag);
+  shown = end;
+  const s = $("deal").value;
+  $("stats").textContent = `${filtered.length} shown / ${DATA.length} total`;
+}
+
+init();
+</script>
+</body>
+</html>

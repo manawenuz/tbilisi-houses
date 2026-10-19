@@ -21,7 +21,7 @@
     "urbans": [
      {
       "name": "Chugureti",
-      "count": 281
+      "count": 282
      },
      {
       "name": "Ivertuban",
@@ -29,7 +29,7 @@
      },
      {
       "name": "Svanetis ubani",
-      "count": 106
+      "count": 107
      },
      {
       "name": "Didube",
@@ -37,7 +37,7 @@
      },
      {
       "name": "Digomi",
-      "count": 65
+      "count": 66
      },
      {
       "name": "Kukia",
@@ -48,7 +48,7 @@
       "count": 1
      }
     ],
-    "count": 806
+    "count": 809
    },
    "Didube-Chugureti|sale": {
     "slug": "didube-chugureti__sale",
@@ -59,7 +59,7 @@
     "urbans": [
      {
       "name": "Chugureti",
-      "count": 261
+      "count": 262
      },
      {
       "name": "Ivertuban",
@@ -86,7 +86,7 @@
       "count": 3
      }
     ],
-    "count": 592
+    "count": 593
    },
    "Gldani-Nadzaladevi|rent": {
     "slug": "gldani-nadzaladevi__rent",
@@ -102,7 +102,7 @@
      },
      {
       "name": "Gldani",
-      "count": 134
+      "count": 135
      },
      {
       "name": "Sanzona",
@@ -153,7 +153,7 @@
       "count": 1
      }
     ],
-    "count": 1176
+    "count": 1177
    },
    "Gldani-Nadzaladevi|sale": {
     "slug": "gldani-nadzaladevi__sale",
@@ -166,7 +166,7 @@
     "urbans": [
      {
       "name": "Nadzaladevi",
-      "count": 447
+      "count": 449
      },
      {
       "name": "Mukhiani",
@@ -174,11 +174,11 @@
      },
      {
       "name": "Lotkini",
-      "count": 131
+      "count": 133
      },
      {
       "name": "Sanzona",
-      "count": 125
+      "count": 127
      },
      {
       "name": "Gldani",
@@ -217,7 +217,7 @@
       "count": 1
      }
     ],
-    "count": 1373
+    "count": 1379
    },
    "Isani-Samgori|rent": {
     "slug": "isani-samgori__rent",
@@ -237,11 +237,11 @@
      },
      {
       "name": "Navtlugi",
-      "count": 50
+      "count": 51
      },
      {
       "name": "Ortachala",
-      "count": 38
+      "count": 39
      },
      {
       "name": "Samgori",
@@ -288,7 +288,7 @@
       "count": 1
      }
     ],
-    "count": 958
+    "count": 960
    },
    "Isani-Samgori|sale": {
     "slug": "isani-samgori__sale",
@@ -303,11 +303,11 @@
      },
      {
       "name": "Varketili",
-      "count": 122
+      "count": 125
      },
      {
       "name": "Ponichala",
-      "count": 68
+      "count": 69
      },
      {
       "name": "Samgori",
@@ -315,7 +315,7 @@
      },
      {
       "name": "Navtlugi",
-      "count": 38
+      "count": 39
      },
      {
       "name": "Orkhevi",
@@ -327,7 +327,7 @@
      },
      {
       "name": "Lilo",
-      "count": 13
+      "count": 14
      },
      {
       "name": "Airport village",
@@ -354,7 +354,7 @@
       "count": 1
      }
     ],
-    "count": 544
+    "count": 550
    },
    "Old Tbilisi|rent": {
     "slug": "old-tbilisi__rent",
@@ -367,7 +367,7 @@
     "urbans": [
      {
       "name": "Ortachala",
-      "count": 294
+      "count": 295
      },
      {
       "name": "Mtatsminda",
@@ -406,7 +406,7 @@
       "count": 1
      }
     ],
-    "count": 1354
+    "count": 1355
    },
    "Old Tbilisi|sale": {
     "slug": "old-tbilisi__sale",
@@ -421,7 +421,7 @@
      },
      {
       "name": "Mtatsminda",
-      "count": 94
+      "count": 95
      },
      {
       "name": "Krtsanisi",
@@ -452,7 +452,7 @@
       "count": 1
      }
     ],
-    "count": 607
+    "count": 608
    },
    "Suburbs of Tbilisi|rent": {
     "slug": "suburbs-of-tbilisi__rent",
@@ -469,11 +469,11 @@
     "urbans": [
      {
       "name": "Tskneti",
-      "count": 1178
+      "count": 1183
      },
      {
       "name": "Tsavkisi",
-      "count": 422
+      "count": 426
      },
      {
       "name": "Kojori",
@@ -481,7 +481,7 @@
      },
      {
       "name": "Oqrokana",
-      "count": 264
+      "count": 265
      },
      {
       "name": "Kaklebi",
@@ -489,7 +489,7 @@
      },
      {
       "name": "Tabakhmela",
-      "count": 210
+      "count": 212
      },
      {
       "name": "Shindisi",
@@ -501,7 +501,7 @@
      },
      {
       "name": "Upper Lisi",
-      "count": 72
+      "count": 73
      },
      {
       "name": "Betania",
@@ -524,7 +524,7 @@
       "count": 1
      }
     ],
-    "count": 3053
+    "count": 3066
    },
    "Suburbs of Tbilisi|sale": {
     "slug": "suburbs-of-tbilisi__sale",
@@ -537,19 +537,19 @@
     "urbans": [
      {
       "name": "Tsavkisi",
-      "count": 284
+      "count": 285
      },
      {
       "name": "Tskneti",
-      "count": 273
+      "count": 276
      },
      {
       "name": "Kojori",
-      "count": 145
+      "count": 147
      },
      {
       "name": "Shindisi",
-      "count": 127
+      "count": 129
      },
      {
       "name": "Tabakhmela",
@@ -557,7 +557,7 @@
      },
      {
       "name": "Oqrokana",
-      "count": 90
+      "count": 91
      },
      {
       "name": "Kaklebi",
@@ -569,7 +569,7 @@
      },
      {
       "name": "Betania",
-      "count": 47
+      "count": 48
      },
      {
       "name": "Kiketi",
@@ -592,7 +592,7 @@
       "count": 1
      }
     ],
-    "count": 1246
+    "count": 1256
    },
    "Vake-Saburtalo|rent": {
     "slug": "vake-saburtalo__rent",
@@ -613,24 +613,25 @@
      "chunk_13.json.gz",
      "chunk_14.json.gz",
      "chunk_15.json.gz",
-     "chunk_16.json.gz"
+     "chunk_16.json.gz",
+     "chunk_17.json.gz"
     ],
     "urbans": [
      {
       "name": "Didi digomi",
-      "count": 1719
+      "count": 1724
      },
      {
       "name": "Digomi 1-9",
-      "count": 1581
+      "count": 1591
      },
      {
       "name": "Lisi lake",
-      "count": 840
+      "count": 841
      },
      {
       "name": "Vake",
-      "count": 675
+      "count": 679
      },
      {
       "name": "Saburtalo",
@@ -638,7 +639,7 @@
      },
      {
       "name": "Sop. Dighomi",
-      "count": 459
+      "count": 461
      },
      {
       "name": "Nutsubidze plateau",
@@ -646,15 +647,15 @@
      },
      {
       "name": "Bagebi",
-      "count": 188
+      "count": 190
      },
      {
       "name": "Tkhinvali",
-      "count": 185
+      "count": 189
      },
      {
       "name": "Vedzisi",
-      "count": 154
+      "count": 155
      },
      {
       "name": "—",
@@ -677,7 +678,7 @@
       "count": 2
      }
     ],
-    "count": 6785
+    "count": 6814
    },
    "Vake-Saburtalo|sale": {
     "slug": "vake-saburtalo__sale",
@@ -694,23 +695,23 @@
     "urbans": [
      {
       "name": "Didi digomi",
-      "count": 1074
+      "count": 1077
      },
      {
       "name": "Lisi lake",
-      "count": 442
+      "count": 444
      },
      {
       "name": "Sop. Dighomi",
-      "count": 397
+      "count": 400
      },
      {
       "name": "Digomi 1-9",
-      "count": 319
+      "count": 321
      },
      {
       "name": "Saburtalo",
-      "count": 300
+      "count": 302
      },
      {
       "name": "Vake",
@@ -726,7 +727,7 @@
      },
      {
       "name": "Nutsubidze plateau",
-      "count": 74
+      "count": 75
      },
      {
       "name": "Vedzisi",
@@ -738,14 +739,14 @@
      },
      {
       "name": "Koshigora",
-      "count": 10
+      "count": 11
      },
      {
       "name": "—",
       "count": 9
      }
     ],
-    "count": 3144
+    "count": 3158
    }
   }
  },
@@ -770,22 +771,22 @@
     "urbans": [
      {
       "name": "—",
-      "count": 796
+      "count": 809
      },
      {
       "name": "Kakhabri district",
-      "count": 48
+      "count": 49
      },
      {
       "name": "Tamar settlement",
-      "count": 48
+      "count": 49
      },
      {
       "name": "Boni-Gorodok district",
       "count": 7
      }
     ],
-    "count": 899
+    "count": 914
    },
    "Batumi|sale": {
     "slug": "batumi__sale",
@@ -795,7 +796,7 @@
     "urbans": [
      {
       "name": "—",
-      "count": 355
+      "count": 357
      },
      {
       "name": "Tamar settlement",
@@ -810,7 +811,7 @@
       "count": 2
      }
     ],
-    "count": 387
+    "count": 389
    },
    "Khelvachauri|rent": {
     "slug": "khelvachauri__rent",
@@ -846,10 +847,10 @@
     "urbans": [
      {
       "name": "—",
-      "count": 71
+      "count": 77
      }
     ],
-    "count": 71
+    "count": 77
    },
    "Kobuleti|sale": {
     "slug": "kobuleti__sale",
@@ -859,10 +860,10 @@
     "urbans": [
      {
       "name": "—",
-      "count": 134
+      "count": 137
      }
     ],
-    "count": 134
+    "count": 137
    },
    "Poti|rent": {
     "slug": "poti__rent",
@@ -986,15 +987,15 @@
     "urbans": [
      {
       "name": "Didube",
-      "count": 7091
+      "count": 7127
      },
      {
       "name": "Digomi",
-      "count": 6313
+      "count": 6329
      },
      {
       "name": "Chugureti",
-      "count": 5347
+      "count": 5377
      },
      {
       "name": "Kukia",
@@ -1013,7 +1014,7 @@
       "count": 13
      }
     ],
-    "count": 19345
+    "count": 19427
    },
    "Didube-Chugureti|sale": {
     "slug": "didube-chugureti__sale",
@@ -1044,23 +1045,23 @@
     "urbans": [
      {
       "name": "Didube",
-      "count": 3728
+      "count": 3755
      },
      {
       "name": "Chugureti",
-      "count": 2325
+      "count": 2334
      },
      {
       "name": "Digomi",
-      "count": 2100
+      "count": 2107
      },
      {
       "name": "Kukia",
-      "count": 208
+      "count": 209
      },
      {
       "name": "Ivertuban",
-      "count": 194
+      "count": 195
      },
      {
       "name": "Svanetis ubani",
@@ -1068,10 +1069,10 @@
      },
      {
       "name": "—",
-      "count": 13
+      "count": 15
      }
     ],
-    "count": 8616
+    "count": 8663
    },
    "Gldani-Nadzaladevi|rent": {
     "slug": "gldani-nadzaladevi__rent",
@@ -1127,23 +1128,23 @@
     "urbans": [
      {
       "name": "Gldani",
-      "count": 7071
+      "count": 7106
      },
      {
       "name": "Nadzaladevi",
-      "count": 4799
+      "count": 4811
      },
      {
       "name": "Sanzona",
-      "count": 2691
+      "count": 2697
      },
      {
       "name": "Mukhiani",
-      "count": 1641
+      "count": 1644
      },
      {
       "name": "Temqa",
-      "count": 1565
+      "count": 1568
      },
      {
       "name": "Avchala",
@@ -1167,7 +1168,7 @@
      },
      {
       "name": "Gldani village",
-      "count": 14
+      "count": 15
      },
      {
       "name": "Gldanula",
@@ -1182,7 +1183,7 @@
       "count": 4
      }
     ],
-    "count": 18700
+    "count": 18760
    },
    "Gldani-Nadzaladevi|sale": {
     "slug": "gldani-nadzaladevi__sale",
@@ -1211,28 +1212,29 @@
      "chunk_21.json.gz",
      "chunk_22.json.gz",
      "chunk_23.json.gz",
-     "chunk_24.json.gz"
+     "chunk_24.json.gz",
+     "chunk_25.json.gz"
     ],
     "urbans": [
      {
       "name": "Gldani",
-      "count": 3211
+      "count": 3238
      },
      {
       "name": "Sanzona",
-      "count": 1840
+      "count": 1852
      },
      {
       "name": "Nadzaladevi",
-      "count": 1839
+      "count": 1848
      },
      {
       "name": "Mukhiani",
-      "count": 1587
+      "count": 1598
      },
      {
       "name": "Temqa",
-      "count": 1119
+      "count": 1120
      },
      {
       "name": "Avchala",
@@ -1271,7 +1273,7 @@
       "count": 1
      }
     ],
-    "count": 9985
+    "count": 10045
    },
    "Isani-Samgori|rent": {
     "slug": "isani-samgori__rent",
@@ -1319,31 +1321,31 @@
     "urbans": [
      {
       "name": "Varketili",
-      "count": 5441
+      "count": 5453
      },
      {
       "name": "Isani",
-      "count": 5279
+      "count": 5300
      },
      {
       "name": "Samgori",
-      "count": 1647
+      "count": 1657
      },
      {
       "name": "Vazisubani",
-      "count": 1443
+      "count": 1446
      },
      {
       "name": "Moscow Ave",
-      "count": 780
+      "count": 784
      },
      {
       "name": "Mesame masivi",
-      "count": 428
+      "count": 429
      },
      {
       "name": "Navtlugi",
-      "count": 158
+      "count": 159
      },
      {
       "name": "Ponichala",
@@ -1374,7 +1376,7 @@
       "count": 3
      }
     ],
-    "count": 15389
+    "count": 15441
    },
    "Isani-Samgori|sale": {
     "slug": "isani-samgori__sale",
@@ -1412,39 +1414,39 @@
     "urbans": [
      {
       "name": "Varketili",
-      "count": 3786
+      "count": 3806
      },
      {
       "name": "Isani",
-      "count": 3088
+      "count": 3103
      },
      {
       "name": "Vazisubani",
-      "count": 1636
+      "count": 1641
      },
      {
       "name": "Samgori",
-      "count": 988
+      "count": 991
      },
      {
       "name": "Moscow Ave",
-      "count": 782
+      "count": 783
      },
      {
       "name": "Ponichala",
-      "count": 313
+      "count": 317
      },
      {
       "name": "Mesame masivi",
-      "count": 275
+      "count": 276
      },
      {
       "name": "Navtlugi",
-      "count": 142
+      "count": 144
      },
      {
       "name": "Lilo",
-      "count": 115
+      "count": 118
      },
      {
       "name": "Orkhevi",
@@ -1467,7 +1469,7 @@
       "count": 8
      }
     ],
-    "count": 11268
+    "count": 11322
    },
    "Old Tbilisi|rent": {
     "slug": "old-tbilisi__rent",
@@ -1522,27 +1524,27 @@
     "urbans": [
      {
       "name": "Ortachala",
-      "count": 3940
+      "count": 3945
      },
      {
       "name": "Vera",
-      "count": 3400
+      "count": 3408
      },
      {
       "name": "Mtatsminda",
-      "count": 3156
+      "count": 3175
      },
      {
       "name": "Sololaki",
-      "count": 2700
+      "count": 2709
      },
      {
       "name": "Avlabari",
-      "count": 2220
+      "count": 2226
      },
      {
       "name": "Krtsanisi",
-      "count": 1648
+      "count": 1651
      },
      {
       "name": "Abanotubani",
@@ -1554,10 +1556,10 @@
      },
      {
       "name": "Elia",
-      "count": 118
+      "count": 119
      }
     ],
-    "count": 18034
+    "count": 18085
    },
    "Old Tbilisi|sale": {
     "slug": "old-tbilisi__sale",
@@ -1586,31 +1588,31 @@
     "urbans": [
      {
       "name": "Ortachala",
-      "count": 2547
+      "count": 2559
      },
      {
       "name": "Vera",
-      "count": 1256
+      "count": 1265
      },
      {
       "name": "Avlabari",
-      "count": 1229
+      "count": 1238
      },
      {
       "name": "Mtatsminda",
-      "count": 956
+      "count": 962
      },
      {
       "name": "Sololaki",
-      "count": 940
+      "count": 944
      },
      {
       "name": "Krtsanisi",
-      "count": 549
+      "count": 550
      },
      {
       "name": "Abanotubani",
-      "count": 219
+      "count": 222
      },
      {
       "name": "Elia",
@@ -1618,10 +1620,10 @@
      },
      {
       "name": "—",
-      "count": 8
+      "count": 9
      }
     ],
-    "count": 7793
+    "count": 7838
    },
    "Suburbs of Tbilisi|rent": {
     "slug": "suburbs-of-tbilisi__rent",
@@ -1634,11 +1636,11 @@
     "urbans": [
      {
       "name": "Tskneti",
-      "count": 467
+      "count": 469
      },
      {
       "name": "Tabakhmela",
-      "count": 386
+      "count": 388
      },
      {
       "name": "Shindisi",
@@ -1677,7 +1679,7 @@
       "count": 1
      }
     ],
-    "count": 1258
+    "count": 1262
    },
    "Suburbs of Tbilisi|sale": {
     "slug": "suburbs-of-tbilisi__sale",
@@ -1688,7 +1690,7 @@
     "urbans": [
      {
       "name": "Tabakhmela",
-      "count": 306
+      "count": 309
      },
      {
       "name": "Tskneti",
@@ -1696,7 +1698,7 @@
      },
      {
       "name": "Oqrokana",
-      "count": 45
+      "count": 46
      },
      {
       "name": "Kiketi",
@@ -1720,7 +1722,7 @@
      },
      {
       "name": "Betania",
-      "count": 3
+      "count": 4
      },
      {
       "name": "Upper Lisi",
@@ -1731,7 +1733,7 @@
       "count": 1
      }
     ],
-    "count": 563
+    "count": 568
    },
    "Vake-Saburtalo|rent": {
     "slug": "vake-saburtalo__rent",
@@ -1842,39 +1844,39 @@
     "urbans": [
      {
       "name": "Saburtalo",
-      "count": 10221
+      "count": 10346
      },
      {
       "name": "Didi digomi",
-      "count": 9861
+      "count": 9896
      },
      {
       "name": "Vake",
-      "count": 9615
+      "count": 9705
      },
      {
       "name": "Nutsubidze plateau",
-      "count": 3226
+      "count": 3234
      },
      {
       "name": "Lisi lake",
-      "count": 2731
+      "count": 2738
      },
      {
       "name": "Bagebi",
-      "count": 1296
+      "count": 1297
      },
      {
       "name": "Digomi 1-9",
-      "count": 1147
+      "count": 1151
      },
      {
       "name": "Vashlijvari",
-      "count": 996
+      "count": 1000
      },
      {
       "name": "Sop. Dighomi",
-      "count": 902
+      "count": 908
      },
      {
       "name": "Vedzisi",
@@ -1909,7 +1911,7 @@
       "count": 1
      }
     ],
-    "count": 40519
+    "count": 40799
    },
    "Vake-Saburtalo|sale": {
     "slug": "vake-saburtalo__sale",
@@ -2008,7 +2010,7 @@
      },
      {
       "name": "Nutsubidze plateau",
-      "count": 2507
+      "count": 2508
      },
      {
       "name": "Lisi lake",
@@ -2020,7 +2022,7 @@
      },
      {
       "name": "Digomi 1-9",
-      "count": 896
+      "count": 898
      },
      {
       "name": "Bagebi",
@@ -2059,7 +2061,7 @@
       "count": 1
      }
     ],
-    "count": 31105
+    "count": 31108
    }
   }
  },
@@ -2111,16 +2113,17 @@
      "chunk_31.json.gz",
      "chunk_32.json.gz",
      "chunk_33.json.gz",
-     "chunk_34.json.gz"
+     "chunk_34.json.gz",
+     "chunk_35.json.gz"
     ],
     "urbans": [
      {
       "name": "—",
-      "count": 13826
+      "count": 13918
      },
      {
       "name": "Kakhabri district",
-      "count": 68
+      "count": 70
      },
      {
       "name": "Tamar settlement",
@@ -2135,7 +2138,7 @@
       "count": 1
      }
     ],
-    "count": 13956
+    "count": 14050
    },
    "Batumi|sale": {
     "slug": "batumi__sale",
@@ -2168,11 +2171,11 @@
     "urbans": [
      {
       "name": "—",
-      "count": 9109
+      "count": 9186
      },
      {
       "name": "Tamar settlement",
-      "count": 46
+      "count": 47
      },
      {
       "name": "Kakhabri district",
@@ -2183,7 +2186,7 @@
       "count": 12
      }
     ],
-    "count": 9206
+    "count": 9284
    },
    "Khelvachauri|rent": {
     "slug": "khelvachauri__rent",
@@ -2193,10 +2196,10 @@
     "urbans": [
      {
       "name": "—",
-      "count": 80
+      "count": 82
      }
     ],
-    "count": 80
+    "count": 82
    },
    "Khelvachauri|sale": {
     "slug": "khelvachauri__sale",
@@ -2219,10 +2222,10 @@
     "urbans": [
      {
       "name": "—",
-      "count": 168
+      "count": 171
      }
     ],
-    "count": 168
+    "count": 171
    },
    "Kobuleti|sale": {
     "slug": "kobuleti__sale",
@@ -2232,10 +2235,10 @@
     "urbans": [
      {
       "name": "—",
-      "count": 298
+      "count": 301
      }
     ],
-    "count": 298
+    "count": 301
    },
    "Poti|rent": {
     "slug": "poti__rent",

@@ -769,6 +769,7 @@
    "Khelvachauri",
    "Kobuleti",
    "Poti",
+   "Ureki",
    "Zugdidi"
   ],
   "groups": {
@@ -902,6 +903,32 @@
      }
     ],
     "count": 37
+   },
+   "Ureki|rent": {
+    "slug": "ureki__rent",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 11
+     }
+    ],
+    "count": 11
+   },
+   "Ureki|sale": {
+    "slug": "ureki__sale",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 50
+     }
+    ],
+    "count": 50
    },
    "Zugdidi|rent": {
     "slug": "zugdidi__rent",
@@ -2129,6 +2156,7 @@
    "Khelvachauri",
    "Kobuleti",
    "Poti",
+   "Ureki",
    "Zugdidi"
   ],
   "groups": {
@@ -2327,6 +2355,32 @@
      }
     ],
     "count": 69
+   },
+   "Ureki|rent": {
+    "slug": "ureki__rent",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 6
+     }
+    ],
+    "count": 6
+   },
+   "Ureki|sale": {
+    "slug": "ureki__sale",
+    "chunks": [
+     "chunk_0.json.gz"
+    ],
+    "urbans": [
+     {
+      "name": "—",
+      "count": 17
+     }
+    ],
+    "count": 17
    },
    "Zugdidi|rent": {
     "slug": "zugdidi__rent",

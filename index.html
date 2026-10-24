@@ -42,6 +42,9 @@ font-size:12px;text-decoration:none}
 padding:12px;margin:12px 20px 0;display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px}
 .filters-panel label{display:flex;flex-direction:column;gap:4px;color:var(--muted)}
 #loading{display:none;padding:30px;text-align:center;color:var(--muted)}
+.card.delisted{opacity:.45;filter:grayscale(.8)}
+.card.delisted .price{text-decoration:line-through}
+.badge.delisted{color:var(--red);border-color:var(--red)}
 .region-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .region-tab{padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);
 color:var(--muted);cursor:pointer;font-size:13px;user-select:none}
@@ -67,11 +70,12 @@ color:var(--muted);cursor:pointer;font-size:13px;user-select:none}
     </select>
     <input type="checkbox" id="hideDups" checked><label for="hideDups" style="font-size:12px">hide reposts</label>
     <input type="checkbox" id="onlyFlag"><label for="onlyFlag" style="font-size:12px">only flagged</label>
+    <input type="checkbox" id="hideDelisted" checked><label for="hideDelisted" style="font-size:12px">hide delisted</label>
   </div>
   <div class="filters-panel">
     <label>min trust: <span id="trustVal">0</span><input type="range" id="trustMin" min="0" max="100" value="0"></label>
-    <label>price from: <input type="number" id="priceFrom" style="width:90px"></label>
-    <label>price to: <input type="number" id="priceTo" style="width:90px"></label>
+    <label>price from ($): <input type="number" id="priceFrom" style="width:90px"></label>
+    <label>price to ($): <input type="number" id="priceTo" style="width:90px"></label>
     <label>area from (m²): <input type="number" id="areaFrom" style="width:70px"></label>
     <label>area to (m²): <input type="number" id="areaTo" style="width:70px"></label>
     <label>$/m² from: <input type="number" id="ppsmFrom" style="width:70px"></label>
@@ -113,7 +117,7 @@ async function init(){
     $("priceFrom").oninput = $("priceTo").oninput = $("areaFrom").oninput =
     $("areaTo").oninput = $("ppsmFrom").oninput = $("ppsmTo").oninput =
     $("rooms").onchange = $("bedrooms").onchange = $("floorSel").onchange =
-    $("hideDups").onchange = $("onlyFlag").onchange = apply;
+    $("hideDups").onchange = $("onlyFlag").onchange = $("hideDelisted").onchange = apply;
   $("trustMin").oninput = e=>{$("trustVal").textContent = e.target.value; apply();};
   $("clear").onclick = ()=>{["priceFrom","priceTo","areaFrom","areaTo","ppsmFrom","ppsmTo"].forEach(k=>$(k).value="");
     $("rooms").value="";$("bedrooms").value="";$("floorSel").value="";$("trustMin").value=0;$("trustVal").textContent="0";
@@ -182,6 +186,8 @@ function apply(){
     if(floorSel === "notground" && r.floor === 1) return false;
     if(floorSel === "top" && !(r.floors && r.floor === r.floors)) return false;
     if(urbanSel && (r.urban||"—") !== urbanSel) return false;
+    const hideDelisted = $("hideDelisted").checked;
+    if(hideDelisted && r.delisted) return false;
     const isDup = r.flags && r.flags.includes("duplicate");
     if(hideDups && isDup) return false;
     if(onlyFlag && !(r.flags||[]).some(f=>f!=="dup-canonical")) return false;
@@ -207,6 +213,7 @@ function badgeHtml(r){
     else if(f==="dup-canonical") b += `<span class="badge canon">original</span>`;
     else b += `<span class="badge flag">${esc(f.split("?")[0])}</span>`;
   });
+  if(r.delisted) b += `<span class="badge delisted">delisted</span>`;
   if(r.vip) b += `<span class="badge">VIP</span>`;
   if(r.has_3d_tour) b += `<span class="badge">3D</span>`;
   return b;
@@ -218,12 +225,12 @@ function render(){
   for(let i=shown;i<end;i++){
     const r = filtered[i];
     const div = document.createElement("div");
-    div.className = "card" + ((r.flags||[]).includes("duplicate") ? " dup" : "");
+    div.className = "card" + ((r.flags||[]).includes("duplicate") ? " dup" : "") + (r.delisted ? " delisted" : "");
     const img = r.first_photo
       ? `<img src="${r.first_photo}" alt="">`
       : `<div class="noimg">no photos</div>`;
-    const price = r.price ? `${r.price.toLocaleString()} ${r.currency}` : "price on request";
-    const ppsm = r.price_per_m2 ? ` · ${Math.round(r.price_per_m2).toLocaleString()}/m²` : "";
+    const price = r.display_price ? `${r.display_price.toLocaleString()} ${r.currency}` : "price on request";
+    const ppsm = r.display_price_per_m2 ? ` · ${Math.round(r.display_price_per_m2).toLocaleString()}/m²` : "";
     const area = r.area_m2 ? `${r.area_m2} m²` : "";
     const yard = r.yard_area_m2 ? ` · yard ${r.yard_area_m2} m²` : "";
     const fl = r.floor && r.floors ? ` · floor ${r.floor}/${r.floors}` : (r.floors ? ` · ${r.floors} fl` : "");
